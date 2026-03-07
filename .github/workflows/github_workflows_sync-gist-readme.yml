@@ -2,7 +2,7 @@ name: Sync README from Gist
 
 on:
   schedule:
-    - cron: "17 3 * * 1,4"
+    - cron: "17 3 * * *"
   workflow_dispatch:
 
 permissions:
