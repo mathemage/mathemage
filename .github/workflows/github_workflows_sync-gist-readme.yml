@@ -25,6 +25,8 @@ jobs:
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
+          set -euo pipefail
+
           if [ -z "${GIST_TOKEN}" ]; then
             echo "GIST_TOKEN secret is required to update the portfolio Gist."
             exit 1
@@ -32,46 +34,74 @@ jobs:
 
           gist_response="$(mktemp)"
           payload_file="$(mktemp)"
+          sync_state_file="$(mktemp)"
+          trap 'rm -f "${gist_response}" "${payload_file}" "${sync_state_file}"' EXIT
 
           curl --fail \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GIST_TOKEN}" \
+            -H "Content-Type: application/json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/gists/${GIST_ID}" \
             -o "${gist_response}"
 
-          if python - "${gist_response}" "${payload_file}" <<'PY'
+          python - "${gist_response}" "${payload_file}" "${sync_state_file}" <<'PY'
           import json
           import os
           import sys
           from pathlib import Path
+          from urllib.request import urlopen
 
-          gist_response_path, payload_path = sys.argv[1:3]
+          gist_response_path, payload_path, sync_state_path = sys.argv[1:4]
           gist = json.loads(Path(gist_response_path).read_text(encoding="utf-8"))
           filename = os.environ["GIST_FILENAME"]
           readme = Path("README.md").read_text(encoding="utf-8")
+          sync_state = Path(sync_state_path)
 
-          if gist["files"][filename]["content"] == readme:
+          files = gist.get("files") or {}
+          if filename not in files:
+              print(
+                  f"Gist file '{filename}' not found in Gist '{gist.get('id', '')}'.",
+                  file=sys.stderr,
+              )
+              raise SystemExit(2)
+
+          gist_file = files[filename]
+          existing_content = gist_file.get("content")
+
+          if gist_file.get("truncated"):
+              raw_url = gist_file.get("raw_url")
+              if not raw_url:
+                  print(
+                      f"Gist file '{filename}' is truncated and missing 'raw_url'.",
+                      file=sys.stderr,
+                  )
+                  raise SystemExit(3)
+              with urlopen(raw_url) as response:
+                  existing_content = response.read().decode("utf-8")
+          elif existing_content is None:
+              print(f"Gist file '{filename}' is missing content.", file=sys.stderr)
+              raise SystemExit(4)
+
+          if existing_content == readme:
+              sync_state.write_text("up_to_date", encoding="utf-8")
               raise SystemExit(0)
 
           payload = {"files": {filename: {"content": readme}}}
           Path(payload_path).write_text(json.dumps(payload), encoding="utf-8")
-          raise SystemExit(10)
+          sync_state.write_text("needs_update", encoding="utf-8")
           PY
-          then
+
+          if [ "$(cat "${sync_state_file}")" = "up_to_date" ]; then
             echo "Gist is already up to date."
             exit 0
-          else
-            status=$?
-            if [ "${status}" -ne 10 ]; then
-              exit "${status}"
-            fi
           fi
 
           curl --fail \
             -X PATCH \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${GIST_TOKEN}" \
+            -H "Content-Type: application/json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             "https://api.github.com/gists/${GIST_ID}" \
             --data @"${payload_file}"
