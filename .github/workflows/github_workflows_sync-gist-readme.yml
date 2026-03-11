@@ -1,33 +1,77 @@
-name: Sync README from Gist
+name: Sync Gist from README
 
 on:
-  schedule:
-    - cron: "17 3 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - README.md
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      GIST_ID: 09545f9158d49f52b2d5ad89cd761bdf
+      GIST_FILENAME: portfolio-Karel-Ha-@mathemage.md
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Download Gist content
+      - name: Mirror README to Gist if changed
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
-          curl -L "https://gist.githubusercontent.com/mathemage/09545f9158d49f52b2d5ad89cd761bdf/raw" -o README.md
-
-      - name: Commit and push if changed
-        run: |
-          if git diff --quiet README.md; then
-            echo "README is already up to date."
-            exit 0
+          if [ -z "${GIST_TOKEN}" ]; then
+            echo "GIST_TOKEN secret is required to update the portfolio Gist."
+            exit 1
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git commit -m "Sync README from Gist"
-          git push
+          gist_response="$(mktemp)"
+          payload_file="$(mktemp)"
+
+          curl --fail \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GIST_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/gists/${GIST_ID}" \
+            -o "${gist_response}"
+
+          if python - "${gist_response}" "${payload_file}" <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+
+          gist_response_path, payload_path = sys.argv[1:3]
+          gist = json.loads(Path(gist_response_path).read_text(encoding="utf-8"))
+          filename = os.environ["GIST_FILENAME"]
+          readme = Path("README.md").read_text(encoding="utf-8")
+
+          if gist["files"][filename]["content"] == readme:
+              raise SystemExit(0)
+
+          payload = {"files": {filename: {"content": readme}}}
+          Path(payload_path).write_text(json.dumps(payload), encoding="utf-8")
+          raise SystemExit(10)
+          PY
+          then
+            echo "Gist is already up to date."
+            exit 0
+          else
+            status=$?
+            if [ "${status}" -ne 10 ]; then
+              exit "${status}"
+            fi
+          fi
+
+          curl --fail \
+            -X PATCH \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GIST_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/gists/${GIST_ID}" \
+            --data @"${payload_file}"
