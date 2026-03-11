@@ -24,10 +24,11 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 - [htools](https://github.com/mathemage/htools) — helper tools and scripts [Haskell]
 
 ## 🤖 Vibe Engineering Projects
-- [scio-assignment-2026](https://github.com/mathemage/scio-assignment-2026) — real-time student progress monitor with teacher/student roles, QR group joining, and chat-based tracking [Python, FastAPI, React]
-- [tv-nova-ai-assignment-2026](https://github.com/mathemage/tv-nova-ai-assignment-2026) — TV audience share forecasting pipeline with EDA, deep-learning models, and Dockerized prediction service [Python, PyTorch, FastAPI]
-- [mindwell-assignment-2026](https://github.com/mathemage/mindwell-assignment-2026) — AI CBT assistant MVP with RAG, safety guardrails, privacy-first handling, and evaluation tooling [Python, FastAPI, PostgreSQL]
+<!-- Sorted latest first -->
 - [mindwell-assignment-ai-engineer-2026](https://github.com/mathemage/mindwell-assignment-ai-engineer-2026) — production-ready CBT assistant MVP with cited RAG answers, multi-agent safety checks, and privacy controls [Python, FastAPI, PostgreSQL]
+- [mindwell-assignment-2026](https://github.com/mathemage/mindwell-assignment-2026) — AI CBT assistant MVP with RAG, safety guardrails, privacy-first handling, and evaluation tooling [Python, FastAPI, PostgreSQL]
+- [tv-nova-ai-assignment-2026](https://github.com/mathemage/tv-nova-ai-assignment-2026) — TV audience share forecasting pipeline with EDA, deep-learning models, and Dockerized prediction service [Python, PyTorch, FastAPI]
+- [scio-assignment-2026](https://github.com/mathemage/scio-assignment-2026) — real-time student progress monitor with teacher/student roles, QR group joining, and chat-based tracking [Python, FastAPI, React]
 
 ## 📚 Publications, Presentations, Talks
 - [endgames-master-thesis](https://github.com/mathemage/endgames-master-thesis) — MSc thesis on combinatorial game theory endgames
