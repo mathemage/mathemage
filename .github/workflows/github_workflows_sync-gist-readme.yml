@@ -30,6 +30,9 @@ jobs:
 
       - name: Mirror README to Gist if changed
         env:
+          # Setup:
+          # 1. Create a classic PAT with only `gist` scope: https://github.com/settings/tokens/new
+          # 2. Store it as this repo's Actions secret: `gh secret set GIST_TOKEN --repo mathemage/mathemage`
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         run: |
           set -euo pipefail
