@@ -35,8 +35,8 @@ jobs:
           set -euo pipefail
 
           if [ -z "${GIST_TOKEN}" ]; then
-            echo "GIST_TOKEN secret is required to update the portfolio Gist."
-            exit 1
+            echo "::notice::GIST_TOKEN secret is not configured; skipping Gist sync."
+            exit 0
           fi
 
           gist_response="$(mktemp)"
