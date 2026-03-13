@@ -1,11 +1,11 @@
 name: Sync Gist from README
 
 on:
-  push:
+  pull_request_target:
+    types:
+      - closed
     branches:
       - main
-    paths:
-      - README.md
   workflow_dispatch:
 
 permissions:
@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   sync:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env:
       GIST_ID: 09545f9158d49f52b2d5ad89cd761bdf
@@ -20,6 +21,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.sha }}
 
       - name: Mirror README to Gist if changed
         env:
