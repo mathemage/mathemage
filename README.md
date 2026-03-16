@@ -2,6 +2,7 @@
 
 ![GitHub Profile Views](https://komarev.com/ghpvc/?username=mathemage&label=GitHub%20Profile%20Views&color=0e75b6&style=flat) 
 ![Gist Portfolio Views](https://visitor-badge.laobi.icu/badge?page_id=mathemage.gist-09545f9158d49f52b2d5ad89cd761bdf&title=Gist%20Portfolio%20Views)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://choosealicense.com/licenses/agpl-3.0/)
 
 [Computer Scientist](https://youtu.be/jaTfDlR9MFk?si=jrcNSgeWhYQniVpF), [AI/ML Engineer](https://raw.githubusercontent.com/mathemage/neural-style/8d2419157d57f5adefaedd97c14dbc1601594815/invoices/invoice-transferred05.png), and [Climber](https://www.instagram.com/mathemage) — passionate about algorithms, competitive programming, and building intelligent systems.
 
