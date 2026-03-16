@@ -26,7 +26,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 
 ## 🤖 Vibe Engineering Projects
 > Sorted latest first.
-- [preference-model-initial-assessment](https://github.com/mathemage/preference-model-initial-assessment) — RL-style Llama decoder block assessment with scratch-built RMSNorm, RoPE, GQA, and SwiGLU plus automated judge/test validation [Python, PyTorch, Pytest, GitHub Actions]
+- [preference-model-initial-assessment](https://github.com/mathemage/preference-model-initial-assessment) — RL-style Llama decoder block assessment with scratch-built RMSNorm, RoPE, GQA, and SwiGLU plus automated judge/test validation [Python, PyTorch, pytest, GitHub Actions]
 - [mindwell-assignment-ai-engineer-2026](https://github.com/mathemage/mindwell-assignment-ai-engineer-2026) — production-ready CBT assistant MVP with cited RAG answers, multi-agent safety checks, and privacy controls [Python, FastAPI, PostgreSQL]
 - [mindwell-assignment-2026](https://github.com/mathemage/mindwell-assignment-2026) — AI CBT assistant MVP with RAG, safety guardrails, privacy-first handling, and evaluation tooling [Python, FastAPI, PostgreSQL]
 - [tv-nova-ai-assignment-2026](https://github.com/mathemage/tv-nova-ai-assignment-2026) — TV audience share forecasting pipeline with EDA, deep-learning models, and Dockerized prediction service [Python, PyTorch, FastAPI]
