@@ -1,4 +1,4 @@
-## Kanban Project
+# Kanban Project
 
 ## Business Requirements
 
@@ -15,7 +15,7 @@
 ## Strategy
 
 1. Write plan with success criteria for each phase to be checked off. Include project scaffolding, including .gitignore, and rigorous unit testing.
-2. Execute the plan ensuring all critiera are met
+2. Execute the plan ensuring all criteria are met
 3. Carry out extensive integration testing with Playwright or similar, fixing defects
 4. Only complete when the MVP is finished and tested, with the server running and ready for the user
 
