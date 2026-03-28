@@ -28,7 +28,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 > Sorted latest first.
 
 ### 🤝 Client Projects
-- [abugo-loom-2026](https://github.com/mathemage/abugo-loom-2026) — Abugo job assignment repository with assignment-specific content
+- [abugo-loom-2026](https://github.com/mathemage/abugo-loom-2026) — Abugo job assignment repo with task brief, notes, and deliverables [Python, Markdown]
 - [preference-model-initial-assessment](https://github.com/mathemage/preference-model-initial-assessment) — RL-style Llama decoder block assessment with scratch-built RMSNorm, RoPE, GQA, and SwiGLU plus automated judge/test validation [Python, PyTorch, pytest, GitHub Actions]
 - [mindwell-assignment-ai-engineer-2026](https://github.com/mathemage/mindwell-assignment-ai-engineer-2026) — production-ready CBT assistant MVP with cited RAG answers, multi-agent safety checks, and privacy controls [Python, FastAPI, PostgreSQL]
 - [mindwell-assignment-2026](https://github.com/mathemage/mindwell-assignment-2026) — AI CBT assistant MVP with RAG, safety guardrails, privacy-first handling, and evaluation tooling [Python, FastAPI, PostgreSQL]
