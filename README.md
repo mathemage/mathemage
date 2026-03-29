@@ -37,6 +37,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 
 ### 🧪 Personal Projects
 - [boulder-daddy](https://github.com/mathemage/boulder-daddy) — professional [bouldering coaching website](https://boulder-daddy.vercel.app/) with service details, pricing, booking, testimonials, contact form, and Instagram integration [Next.js, Tailwind CSS]
+- [deep-workflow](https://github.com/mathemage/deep-workflow)
 
 ## 📚 Publications, Presentations, Talks
 - [endgames-master-thesis](https://github.com/mathemage/endgames-master-thesis) — MSc thesis on combinatorial game theory endgames
