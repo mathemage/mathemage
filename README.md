@@ -36,6 +36,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 - [scio-assignment-2026](https://github.com/mathemage/scio-assignment-2026) — real-time student progress monitor with teacher/student roles, QR group joining, and chat-based tracking [Python, FastAPI, React]
 
 ### 🧪 Personal Projects
+- [adhd-cockpit](https://github.com/mathemage/adhd-cockpit) — production-ready multi-device-synced ADHD web app with dynamic UI and real backend intelligence [Django, HTMX]
 - [boulder-daddy](https://github.com/mathemage/boulder-daddy) — professional [bouldering coaching website](https://boulder-daddy.vercel.app/) with service details, pricing, booking, testimonials, contact form, and Instagram integration [Next.js, Tailwind CSS]
 - [deep-workflow](https://github.com/mathemage/deep-workflow) — hosted deep-work planner for synced 45-minute focus sessions across laptops and phones [Django, PostgreSQL, HTMX, Alpine.js, Tailwind CSS]
 
