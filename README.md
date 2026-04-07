@@ -39,7 +39,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 - [boulder-daddy](https://github.com/mathemage/boulder-daddy) — professional [bouldering coaching website](https://boulder-daddy.vercel.app/) with service details, pricing, booking, testimonials, contact form, and Instagram integration [Next.js, Tailwind CSS]
 - [deep-workflow](https://github.com/mathemage/deep-workflow) — hosted deep-work planner for synced 45-minute focus sessions across laptops and phones [Django, PostgreSQL, HTMX, Alpine.js, Tailwind CSS]
 - [adhd-cockpit](https://github.com/mathemage/adhd-cockpit) — production-ready multi-device-synced ADHD web app with dynamic UI and real backend intelligence [Django, HTMX]
-- [noema-forge](https://github.com/mathemage/noema-forge) — journaling web app for turning raw thoughts into clearer, searchable reflections [Markdown]
+- [noema-forge](https://github.com/mathemage/noema-forge) — journaling web app for turning raw thoughts into clearer, searchable reflections [Node.js, Python, Markdown]
 
 ## 📚 Publications, Presentations, Talks
 - [endgames-master-thesis](https://github.com/mathemage/endgames-master-thesis) — MSc thesis on combinatorial game theory endgames
