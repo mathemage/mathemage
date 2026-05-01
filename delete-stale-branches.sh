@@ -5,6 +5,29 @@ usage() {
   printf 'Usage: %s [remote]\n' "${0##*/}" >&2
 }
 
+remote=""
+
+case $# in
+  0)
+    ;;
+  1)
+    case "$1" in
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        remote="$1"
+        ;;
+    esac
+    ;;
+  *)
+    usage
+    printf 'Expected at most one remote name.\n' >&2
+    exit 1
+    ;;
+esac
+
 if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   usage
   printf 'Run this script inside a git worktree.\n' >&2
@@ -12,7 +35,6 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 current_branch="$(git branch --show-current)"
-remote="${1:-}"
 
 if [[ -z "$remote" && -n "$current_branch" ]]; then
   remote="$(git for-each-ref --format='%(upstream:remotename)' "refs/heads/$current_branch")"
@@ -33,21 +55,24 @@ if ! git remote get-url "$remote" >/dev/null 2>&1; then
 fi
 
 list_stale_branches() {
-  local branch upstream upstream_remote
+  local branch upstream_merge upstream_remote
 
-  while IFS=$'\t' read -r branch upstream upstream_remote; do
+  while IFS= read -r branch; do
     if [[ -n "$current_branch" && "$branch" == "$current_branch" ]]; then
       continue
     fi
 
-    if [[ -z "$upstream" || "$upstream_remote" != "$remote" ]]; then
+    upstream_remote="$(git config --get "branch.$branch.remote" 2>/dev/null || true)"
+    upstream_merge="$(git config --get "branch.$branch.merge" 2>/dev/null || true)"
+
+    if [[ -z "$upstream_remote" || -z "$upstream_merge" || "$upstream_remote" != "$remote" ]]; then
       continue
     fi
 
-    if ! git show-ref --quiet --verify "$upstream"; then
+    if ! git ls-remote --exit-code --heads "$remote" "$upstream_merge" >/dev/null 2>&1; then
       printf '%s\n' "$branch"
     fi
-  done < <(git for-each-ref refs/heads --format='%(refname:short)%09%(upstream)%09%(upstream:remotename)')
+  done < <(git for-each-ref refs/heads --format='%(refname:short)')
 }
 
 git status --short --branch
@@ -56,7 +81,10 @@ git remote -v
 
 git fetch --prune "$remote"
 
-mapfile -t stale_branches < <(list_stale_branches)
+stale_branches=()
+while IFS= read -r branch; do
+  stale_branches+=("$branch")
+done < <(list_stale_branches)
 
 if ((${#stale_branches[@]} > 0)); then
   printf 'Deleting stale branches for remote %s:\n' "$remote"
@@ -72,7 +100,10 @@ fi
 
 git branch --format='%(refname:short)'
 
-mapfile -t remaining_stale_branches < <(list_stale_branches)
+remaining_stale_branches=()
+while IFS= read -r branch; do
+  remaining_stale_branches+=("$branch")
+done < <(list_stale_branches)
 
 if ((${#remaining_stale_branches[@]} > 0)); then
   printf 'Remaining stale branches for remote %s:\n' "$remote" >&2
