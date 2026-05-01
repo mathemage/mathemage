@@ -69,7 +69,7 @@ list_stale_branches() {
       continue
     fi
 
-    if ! git ls-remote --exit-code --heads "$remote" "$upstream_merge" >/dev/null 2>&1; then
+    if [[ "$remote_head_refs" != *$'\n'"$upstream_merge"$'\n'* ]]; then
       printf '%s\n' "$branch"
     fi
   done < <(git for-each-ref refs/heads --format='%(refname:short)')
@@ -77,9 +77,10 @@ list_stale_branches() {
 
 git status --short --branch
 git branch --format='%(refname:short)'
-git remote -v
+git remote
 
 git fetch --prune "$remote"
+remote_head_refs=$'\n'"$(git ls-remote --heads "$remote" | cut -f2)"$'\n'
 
 stale_branches=()
 while IFS= read -r branch; do
