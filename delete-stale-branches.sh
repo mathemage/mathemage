@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+usage() {
+  printf 'Usage: %s [remote]\n' "${0##*/}" >&2
+}
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  usage
+  printf 'Run this script inside a git worktree.\n' >&2
+  exit 1
+fi
+
 current_branch="$(git branch --show-current)"
 remote="${1:-}"
 
@@ -23,17 +33,21 @@ if ! git remote get-url "$remote" >/dev/null 2>&1; then
 fi
 
 list_stale_branches() {
-  local branch
+  local branch upstream upstream_remote
 
-  while IFS= read -r branch; do
+  while IFS=$'\t' read -r branch upstream upstream_remote; do
     if [[ -n "$current_branch" && "$branch" == "$current_branch" ]]; then
       continue
     fi
 
-    if ! git show-ref --quiet --verify "refs/remotes/$remote/$branch"; then
+    if [[ -z "$upstream" || "$upstream_remote" != "$remote" ]]; then
+      continue
+    fi
+
+    if ! git show-ref --quiet --verify "$upstream"; then
       printf '%s\n' "$branch"
     fi
-  done < <(git for-each-ref refs/heads --format='%(refname:short)')
+  done < <(git for-each-ref refs/heads --format='%(refname:short)%09%(upstream)%09%(upstream:remotename)')
 }
 
 git status --short --branch
