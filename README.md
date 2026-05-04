@@ -40,7 +40,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 - [deep-workflow](https://github.com/mathemage/deep-workflow) — hosted [deep-work planner](https://deep-workflow.vercel.app/) for synced 45-minute focus sessions across laptops and phones [Django, PostgreSQL, HTMX, Alpine.js, Tailwind CSS]
 - [adhd-cockpit](https://github.com/mathemage/adhd-cockpit) — production-ready multi-device-synced ADHD web app with dynamic UI and real backend intelligence [Django, HTMX]
 - [noema-forge](https://github.com/mathemage/noema-forge) — journaling web app for turning raw thoughts into clearer, searchable reflections [Node.js, Python, Markdown]
-- [SleepOps](https://github.com/mathemage/SleepOps) — constraint-driven sleep operating system that turns work schedules, morning routines, and shutdown deadlines into protected sleep rules [Next.js, React, TypeScript, Tailwind CSS, PWA, Vitest, Playwright, GitHub Actions]
+- [SleepOps](https://github.com/mathemage/SleepOps) — constraint-driven [sleep operating system](https://sleep-ops.vercel.app/) that turns work schedules, morning routines, and shutdown deadlines into protected sleep rules [Next.js, React, TypeScript, Tailwind CSS, PWA, Vitest, Playwright, GitHub Actions]
 
 ## 📚 Publications, Presentations, Talks
 - [endgames-master-thesis](https://github.com/mathemage/endgames-master-thesis) — MSc thesis on combinatorial game theory endgames
