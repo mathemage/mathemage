@@ -28,6 +28,7 @@ Full profile: [github.com/mathemage](https://github.com/mathemage)
 > Sorted latest first.
 
 ### 🤝 Client Projects
+- [Alza-AI-enablement-eng-2026_v1](https://github.com/mathemage/Alza-AI-enablement-eng-2026_v1) — backend-only Gmail AI assistant that analyzes messages and attachments, uses live search, and replies in the original thread [Python, FastAPI, Gmail API, Gemini, Google Cloud]
 - [gem-github-hooks](https://github.com/mathemage/gem-github-hooks) — Standalone catalog of 30 GitHub Actions workflows for modern C# and ASP.NET Core repositories [YAML, GitHub Actions, C#, .NET, ASP.NET Core]
 - [abugo-loom-2026](https://github.com/mathemage/abugo-loom-2026) — Abugo job assignment repo with task brief, notes, and deliverables [Python, Markdown]
 - [preference-model-initial-assessment](https://github.com/mathemage/preference-model-initial-assessment) — RL-style Llama decoder block assessment with scratch-built RMSNorm, RoPE, GQA, and SwiGLU plus automated judge/test validation [Python, PyTorch, pytest, GitHub Actions]
